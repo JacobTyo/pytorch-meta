@@ -10,8 +10,9 @@ class MetaEmbedding(nn.Embedding, MetaModule):
 
     def forward(self, input, params=None):
         if params is None:
-            params = OrderedDict(self.named_parameters())
-        weight = params.get('weight', None)
+            weight = self.weight
+        else:
+            weight = params.get('weight', None)
 
         return F.embedding(input, weight, self.padding_idx, self.max_norm,
                            self.norm_type, self.scale_grad_by_freq, self.sparse)
