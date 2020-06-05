@@ -11,7 +11,8 @@ class MetaLinear(nn.Linear, MetaModule):
         if params is None:
             params = OrderedDict(self.named_parameters())
         bias = params.get('bias', None)
-        return F.linear(input, params['weight'], bias)
+        weight = params.get('weight', None)
+        return F.linear(input, weight, bias)
 
 class MetaBilinear(nn.Bilinear, MetaModule):
     __doc__ = nn.Bilinear.__doc__
@@ -20,4 +21,5 @@ class MetaBilinear(nn.Bilinear, MetaModule):
         if params is None:
             params = OrderedDict(self.named_parameters())
         bias = params.get('bias', None)
-        return F.bilinear(input1, input2, params['weight'], bias)
+        weight = params.get('weight', None)
+        return F.bilinear(input1, input2, weight, bias)
